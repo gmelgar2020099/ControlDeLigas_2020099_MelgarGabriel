@@ -17,13 +17,15 @@ function asignacionPartidos(req, res) {
         productoModel.jornada = parameters.jornada;
     }
     Partidos.findOne({ idEquipo1: parameters.idEquipo1, jornada: parameters.jornada }, (err, equipo1) => {
-
         if (err) return res.status(500).send({ mensaje: 'No se realizo la accion equipo1' });
         if (!equipo1) {
             Partidos.findOne({ idEquipo2: parameters.idEquipo2, jornada: parameters.jornada }, (err, equipo2) => {
                 if (err) return res.status(500).send({ mensaje: 'No se realizo la accion equipo2' });
                 if (!equipo2) {
                     Equipos.find((err, equipoe) => {
+                        if(!equipoe){
+                            return res.status(500).send({ mensaje: 'No se encontraron equipos' });
+                        }
                         if (equipoe.lenght % 2 == 0) {
                             //partido y jornada par
                             partidosMaximos = equipoe.length / 2;
@@ -41,6 +43,7 @@ function asignacionPartidos(req, res) {
                                     if (parameters.jornada <= jornadaMax) {
                                         if (err) return res.status(500).send({ mensaje: 'No se realizo la accion jornadaB' });
                                         productoModel.save((err, partidoGuardado) => {
+                                            if(!partidoGuardado) return res.status(404).send({ mensaje: 'No se realizo la accion partido guardado'})
                                             var puntoE1
                                             var puntoE2
                                             var partidosEmpatadosE1

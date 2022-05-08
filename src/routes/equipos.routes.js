@@ -10,5 +10,7 @@ api.post('/agregarEquipo', md_autentificacion.Auth, equipoController.asignacionE
 api.put('/editarEquipo/:id', md_autentificacion.Auth, equipoController.editarEquipo)
 api.delete('/eliminarEquipo/:id', md_autentificacion.Auth, equipoController.eliminarEquipo)
 
-api.get('/buscarEquipoLiga/:idLigas',md_autentificacion.Auth,equipoController.buscarEquipoIdLiga);
+api.get('/buscarEquipoLiga/:idLigas',md_autentificacion.Auth,equipoController.generarReporte);
+api.get('/generarTabla/:idLigas',md_autentificacion.Auth, equipoController.tablaLiga);
+
 module.exports = api;

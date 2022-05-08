@@ -8,7 +8,7 @@ function registarAdminDefecto(req, res) {
     usuarioModelo.rol = 'ROL_ADMINISTRADOR';
     Usuarios.find({ nombre: 'ADMIN' }, (err, usuarioGuardado) => {
         if (usuarioGuardado.length == 0) {
-            brycpt.hash("deportes123", null, null, (err, passswordEncypt) => {
+            bcrypt.hash("deportes123", null, null, (err, passswordEncypt) => {
                 usuarioModelo.password = passswordEncypt
                 usuarioModelo.save((err, usuarioGuardadoSegundo) => {
                    console.log( usuarioGuardadoSegundo )
